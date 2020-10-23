@@ -34,15 +34,9 @@ class GroupSerializer(ValidatedModelSerializer):
 
 class TokenSerializer(ValidatedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='users-api:token-detail')
-    user = SerializedPKRelatedField(
-        queryset=User.objects.all(),
-        serializer=NestedUserSerializer,
-        required=True,
-        many=False
-    )
     class Meta:
         model = Token
-        fields = ('user', 'created', 'expires', 'key', 'write_enabled', 'description')
+        fields = ('url', 'user', 'created', 'expires', 'key', 'write_enabled', 'description')
 
 class ObjectPermissionSerializer(ValidatedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='users-api:objectpermission-detail')

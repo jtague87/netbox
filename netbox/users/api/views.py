@@ -35,7 +35,6 @@ class GroupViewSet(ModelViewSet):
 class TokenViewSet(ModelViewSet):
     queryset = RestrictedQuerySet(model=Token).annotate(user_count=Count('key')).order_by('key')
     serializer_class = serializers.TokenSerializer
-    filterset_class = filters.GroupFilterSet
 
 
 

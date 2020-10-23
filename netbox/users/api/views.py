@@ -3,7 +3,7 @@ from django.db.models import Count
 from rest_framework.routers import APIRootView
 
 from users import filters
-from users.models import ObjectPermission
+from users.models import ObjectPermission, Token
 from utilities.api import ModelViewSet
 from utilities.querysets import RestrictedQuerySet
 from . import serializers
@@ -31,6 +31,12 @@ class GroupViewSet(ModelViewSet):
     queryset = RestrictedQuerySet(model=Group).annotate(user_count=Count('user')).order_by('name')
     serializer_class = serializers.GroupSerializer
     filterset_class = filters.GroupFilterSet
+
+class TokenViewSet(ModelViewSet):
+    queryset = RestrictedQuerySet(model=Token).annotate(user_count=Count('token')).order_by('key')
+    serializer_class = serializers.TokenSerializer
+    filterset_class = filters.GroupFilterSet
+
 
 
 #

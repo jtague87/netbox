@@ -205,6 +205,8 @@ class Token(models.Model):
         max_length=200,
         blank=True
     )
+    
+    objects = RestrictedQuerySet.as_manager()
 
     class Meta:
         pass

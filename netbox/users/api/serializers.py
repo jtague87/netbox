@@ -1,3 +1,4 @@
+from netbox.users.models import Token
 from django.contrib.auth.models import Group, User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
@@ -32,6 +33,17 @@ class GroupSerializer(ValidatedModelSerializer):
         model = Group
         fields = ('id', 'url', 'name', 'user_count')
 
+class TokenSerializer(ValidatedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='users-api:token-detail')
+    user = SerializedPKRelatedField(
+        queryset=User.objects.all(),
+        serializer=NestedUserSerializer,
+        required=True,
+        many=False
+    )
+    class Meta:
+        model = Token
+        fields = ('user', 'created', 'expires', 'key', 'write_enabled', 'description')
 
 class ObjectPermissionSerializer(ValidatedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='users-api:objectpermission-detail')

@@ -1,9 +1,8 @@
-from netbox.users.models import Token
 from django.contrib.auth.models import Group, User
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 
-from users.models import ObjectPermission
+from users.models import ObjectPermission, Token
 from utilities.api import ContentTypeField, SerializedPKRelatedField, ValidatedModelSerializer
 from .nested_serializers import *
 
